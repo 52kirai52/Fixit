@@ -16,4 +16,10 @@ public class UserController {
         userService.register(dto);
         return ResponseEntity.ok("회원가입 성공");
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequestDto dto) {
+        String token = userService.login(dto);
+        return ResponseEntity.ok(token);
+    }
 }
