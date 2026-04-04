@@ -22,4 +22,9 @@ public class UserController {
         String token = userService.login(dto);
         return ResponseEntity.ok(token);
     }
+
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("인증된 사용자입니다.");
+    }
 }
