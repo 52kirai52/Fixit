@@ -36,7 +36,8 @@ public class UserService {
     public String login(LoginRequestDto dto) {
         User user = userRepository.findByUsername(dto.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
-
+        // User객체에 필요없는 값도 같이 생성될 수 있음. 최적화 가능
+        
         if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }

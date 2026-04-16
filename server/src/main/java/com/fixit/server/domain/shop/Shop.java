@@ -2,14 +2,15 @@ package com.fixit.server.domain.shop;
 
 import com.fixit.server.domain.user.User;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "shops")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class Shop {
 
     @Id
