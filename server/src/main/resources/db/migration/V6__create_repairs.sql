@@ -1,4 +1,4 @@
-CREATE TABLE services (
+CREATE TABLE repairs (
     id          BIGINT          NOT NULL AUTO_INCREMENT,
     shop_id     BIGINT          NOT NULL,
     vehicle_id  BIGINT          NOT NULL,
