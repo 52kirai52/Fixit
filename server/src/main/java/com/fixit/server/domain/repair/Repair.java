@@ -40,4 +40,11 @@ public class Repair {
         this.createdAt = LocalDateTime.now();
         this.status = "RECEIVED";
     }
+
+    public void updateStatus(String status) {
+        this.status = status;
+        if (status.equals("CLOSED")) {
+            this.closedAt = LocalDateTime.now();
+        }
+    }
 }

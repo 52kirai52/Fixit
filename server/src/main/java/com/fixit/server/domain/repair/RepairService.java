@@ -62,7 +62,6 @@ public class RepairService {
     public void updateStatus(Long repairId, String status) {
         Repair repair = repairRepository.findById(repairId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 정비 건입니다."));
-
-        // 나중에 상태 변경 메서드 추가 예정
+        repair.updateStatus(status);
     }
 }
