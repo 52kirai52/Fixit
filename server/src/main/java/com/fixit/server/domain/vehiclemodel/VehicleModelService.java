@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +30,10 @@ public class VehicleModelService {
     }
 
     @Transactional(readOnly = true)
-    public List<VehicleModel> findAll(Long shopId) {
-        return vehicleModelRepository.findByShopId(shopId);
+    public List<VehicleModelResponseDto> findAll(Long shopId) {
+        return vehicleModelRepository.findByShopId(shopId)
+                .stream()
+                .map(VehicleModelResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

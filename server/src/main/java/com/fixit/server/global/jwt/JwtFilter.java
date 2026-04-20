@@ -29,9 +29,14 @@ public class JwtFilter extends OncePerRequestFilter {
 
             if (jwtUtil.validateToken(token)) {
                 String username = jwtUtil.getUsername(token);
+                Long shopId = jwtUtil.getShopId(token);
 
                 UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
+                        new UsernamePasswordAuthenticationToken(
+                                username, 
+                                shopId, 
+                                Collections.emptyList()
+                        );
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

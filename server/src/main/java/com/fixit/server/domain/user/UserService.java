@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fixit.server.domain.shop.Shop;
+import com.fixit.server.domain.shop.ShopRepository;
 import com.fixit.server.global.jwt.JwtUtil;
 
 @Service
@@ -13,6 +15,7 @@ import com.fixit.server.global.jwt.JwtUtil;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final ShopRepository shopRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
@@ -36,12 +39,14 @@ public class UserService {
     public String login(LoginRequestDto dto) {
         User user = userRepository.findByUsername(dto.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
-        // User객체에 필요없는 값도 같이 생성될 수 있음. 최적화 가능
-        
+
         if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        return jwtUtil.generateToken(user.getUsername());
+        Shop shop = shopRepository.findByOwnerId(user.getId())
+                .orElseThrow(() -> new IllegalArgumentException("사업체를 먼저 등록해주세요."));
+
+        return jwtUtil.generateToken(user.getUsername(), shop.getId());
     }
 }

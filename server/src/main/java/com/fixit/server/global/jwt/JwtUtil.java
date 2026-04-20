@@ -15,9 +15,10 @@ public class JwtUtil {
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final long EXPIRATION = 1000 * 60 * 60 * 24; // 24시간
 
-    public String generateToken(String username) {
+    public String generateToken(String username, Long shopId) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("shopId", shopId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(key)
@@ -43,5 +44,14 @@ public class JwtUtil {
         } catch (JwtException e) {
             return false;
         }
+    }
+
+    public Long getShopId(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("shopId", Long.class);
     }
 }
