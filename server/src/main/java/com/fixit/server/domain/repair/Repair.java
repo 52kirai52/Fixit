@@ -23,7 +23,7 @@ public class Repair {
     private Shop shop;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vehicle_id", nullable = false)
+    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
     @Column(nullable = false, length = 20)

@@ -24,19 +24,19 @@ public class RepairService {
         Shop shop = shopRepository.findById(shopId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 업체입니다."));
 
-        Vehicle vehicle;
+        Vehicle vehicle = null;
+
         if (dto.getVehicleId() != null) {
             vehicle = vehicleRepository.findById(dto.getVehicleId())
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 차량입니다."));
         } else if (dto.getPlateNumber() != null) {
             vehicle = vehicleRepository.findByPlateNumber(dto.getPlateNumber())
-                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 차량입니다."));
-        } else {
-            throw new IllegalArgumentException("차량 ID 또는 번호판을 입력해주세요.");
+                    .orElse(null);
         }
+
         Repair repair = Repair.builder()
                 .shop(shop)
-                .vehicle(vehicle)
+                .vehicle(vehicle)  // null 가능
                 .build();
 
         repairRepository.save(repair);
