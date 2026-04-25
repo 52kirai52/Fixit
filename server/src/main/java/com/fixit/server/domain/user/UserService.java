@@ -19,22 +19,6 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    @Transactional
-    public void register(UserRequestDto dto) {
-        if (userRepository.existsByUsername(dto.getUsername())) {
-            throw new IllegalArgumentException("이미 사용중인 아이디입니다.");
-        }
-
-        User user = User.builder()
-            .username(dto.getUsername())
-            .password(passwordEncoder.encode(dto.getPassword()))
-            .name(dto.getName())
-            .phone(dto.getPhone())
-            .build();
-
-        userRepository.save(user);
-    }
-
     @Transactional(readOnly = true)
     public String login(LoginRequestDto dto) {
         User user = userRepository.findByUsername(dto.getUsername())
