@@ -1,11 +1,25 @@
-import { useState } from 'react'
-import Header from './components/Header'
-import Main from './components/Main'
-import Category from './components/Category'
+import { useState, useEffect } from 'react'
+import { getMe } from './api/auth'
+import Header from './layout/Header'
+import Main from './layout/Main'
+import Category from './layout/Category'
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [userInfo, setUserInfo] = useState(null)
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+      const token = localStorage.getItem('token')
+      if (!token) return
+
+      getMe()
+        .then(res => {
+          setUser({ username: res.data.username, shopName: res.data.shopName })
+        })
+        .catch(() => {
+          localStorage.removeItem('token')
+          setUser(null)
+        })
+    }, [])
 
   return (
     <div style={{ backgroundColor: '#d1d5db', minHeight: '100vh', display: 'flex', justifyContent: 'flex-start', overflow: 'auto' }}>
@@ -20,9 +34,9 @@ function App() {
         padding: '8px',
         boxSizing: 'border-box'
       }}>
-        <Header setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} />
-        <Main isLoggedIn={isLoggedIn} userInfo={userInfo} />
-        <Category isLoggedIn={isLoggedIn} />
+        <Header user={user} setUser={setUser} />
+        <Main user={user} />
+        <Category user={user} />
       </div>
     </div>
   )
