@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react'
-import { getMe } from './api/auth'
 import Header from './layout/Header'
 import Main from './layout/Main'
 import Category from './layout/Category'
+import { getMe } from './api/auth'
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(() => {
+    const token = localStorage.getItem('token')
+    return token ? undefined : null
+  })
 
   useEffect(() => {
-      const token = localStorage.getItem('token')
-      if (!token) return
-
+    const token = localStorage.getItem('token')
+    if (token) {
       getMe()
         .then(res => {
           setUser({ username: res.data.username, shopName: res.data.shopName })
@@ -19,7 +21,8 @@ function App() {
           localStorage.removeItem('token')
           setUser(null)
         })
-    }, [])
+    }
+  }, [])
 
   return (
     <div style={{ backgroundColor: '#d1d5db', minHeight: '100vh', display: 'flex', justifyContent: 'flex-start', overflow: 'auto' }}>

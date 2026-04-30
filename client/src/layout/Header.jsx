@@ -16,9 +16,11 @@ function Header({ user, setUser }) {
       }}>
         <span style={{ color: 'white', fontSize: '12px', fontWeight: 'bold' }}>Fixit 🚗</span>
       </div>
-      {!user
-        ? <BeforeUser setUser={setUser} />
-        : <AfterUser user={user} setUser={setUser} />
+      {user === undefined
+        ? null
+        : !user
+          ? <BeforeUser setUser={setUser} />
+          : <AfterUser user={user} setUser={setUser} />
       }
     </div>
   )
