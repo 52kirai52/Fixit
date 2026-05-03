@@ -10,6 +10,8 @@ function App() {
     return token ? undefined : null
   })
 
+  const [activeMenu, setActiveMenu] = useState(null)
+
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
@@ -28,8 +30,8 @@ function App() {
     <div style={{ backgroundColor: '#d1d5db', minHeight: '100vh', display: 'flex', justifyContent: 'flex-start', overflow: 'auto' }}>
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: '180px 1fr', 
-        gridTemplateRows: '160px 1fr', 
+        gridTemplateColumns: '180px 1076px',
+        gridTemplateRows: '160px 596px',
         gap: '8px',
         width: '1280px',
         height: '780px',
@@ -38,8 +40,8 @@ function App() {
         boxSizing: 'border-box'
       }}>
         <Header user={user} setUser={setUser} />
-        <Main user={user} />
-        <Category user={user} />
+        <Main activeMenu={activeMenu} />
+        <Category activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
       </div>
     </div>
   )
