@@ -13,7 +13,12 @@ function RepairForm({ onClose }) {
   })
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    if (name === 'customerPhone') {
+      setForm({ ...form, [name]: value.replace(/[^0-9]/g, '') })
+    } else {
+      setForm({ ...form, [name]: value })
+    }
   }
 
   const handleSubmit = async () => {
