@@ -36,7 +36,8 @@ public class RepairService {
 
         Repair repair = Repair.builder()
                 .shop(shop)
-                .vehicle(vehicle)  // null 가능
+                .vehicle(vehicle)
+                .memo(dto.getMemo())
                 .build();
 
         repairRepository.save(repair);

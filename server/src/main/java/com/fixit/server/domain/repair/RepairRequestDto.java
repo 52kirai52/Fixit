@@ -6,6 +6,17 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class RepairRequestDto {
-    private Long vehicleId;
+    // 필수
+    private String customerName;
     private String plateNumber;
+
+    // 선택
+    private String customerPhone;
+    private String memo;
+
+    // 나중에 추가 예정
+    private Long vehicleId;
+    private Long modelId;
+    private String carModel;
+    private Integer lastMileage;
 }

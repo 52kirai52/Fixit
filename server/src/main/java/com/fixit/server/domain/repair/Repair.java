@@ -35,6 +35,9 @@ public class Repair {
     @Column
     private LocalDateTime closedAt;
 
+    @Column(columnDefinition = "TEXT")
+    private String memo;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
