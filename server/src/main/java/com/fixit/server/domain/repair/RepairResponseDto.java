@@ -11,11 +11,13 @@ public class RepairResponseDto {
     private String customerName;
     private String modelName;
     private LocalDateTime createdAt;
+    private LocalDateTime closedAt;
 
 public RepairResponseDto(Repair repair) {
     this.id = repair.getId();
     this.status = repair.getStatus();
     this.createdAt = repair.getCreatedAt();
+    this.closedAt = repair.getClosedAt();
     
     if (repair.getVehicle() != null) {
         this.plateNumber = repair.getVehicle().getPlateNumber();
