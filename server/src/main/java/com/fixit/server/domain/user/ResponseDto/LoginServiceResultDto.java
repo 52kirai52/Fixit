@@ -5,8 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class LoginResponseDto {
-    private String accesstoken;
-    private String username;
-    private String shopName;
+public class LoginServiceResultDto {
+    private String refreshToken;
+    private LoginResponseDto loginResponseDto;
 }
