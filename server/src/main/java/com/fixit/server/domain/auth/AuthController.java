@@ -11,6 +11,7 @@ import com.fixit.server.domain.auth.responseDto.LoginServiceResultDto;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -20,7 +21,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequestDto dto) {
+    public ResponseEntity<String> register(@Valid @RequestBody RegisterRequestDto dto) {
         authService.register(dto);
         return ResponseEntity.ok("회원가입 성공");
     }

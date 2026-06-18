@@ -8,5 +8,4 @@ import lombok.Getter;
 public class LoginResponseDto {
     private String accesstoken;
     private String username;
-    private String shopName;
 }
