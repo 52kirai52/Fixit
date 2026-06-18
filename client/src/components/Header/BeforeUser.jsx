@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { login } from '../../api/auth'
+import useAuthStore from '../../store/authStore'
 
 function BeforeUser({ setUser }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const setAccessToken = useAuthStore((state) => state.setAccessToken)
 
   const handleLogin = async () => {
     try {
       const res = await login(username, password)
-      localStorage.setItem('token', res.data.token)
+      setAccessToken(res.data.accesstoken)
       setUser({ username: res.data.username, shopName: res.data.shopName })
       setError('')
     } catch {
