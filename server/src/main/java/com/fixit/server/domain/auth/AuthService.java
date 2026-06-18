@@ -29,8 +29,6 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final RedisTemplate<String, String> redisTemplate;
 
-
-    @Transactional(readOnly = true)
     public LoginServiceResultDto login(LoginRequestDto dto) {
         // 1. 아이디로 유저 조회
         User user = userRepository.findByUsername(dto.getUsername())

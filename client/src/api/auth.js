@@ -1,7 +1,7 @@
 import api from './axios'
 
 export const login = (username, password) => {
-    return api.post('/api/users/login', { username, password })
+    return api.post('/api/auth/login', { username, password })
 }
 
 export const register = (username, password, name, phone, shopName, shopAddress) => {
