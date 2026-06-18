@@ -1,4 +1,4 @@
-package com.fixit.server.domain.user.ResponseDto;
+package com.fixit.server.domain.auth.responseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
